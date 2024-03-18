@@ -42,4 +42,27 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function articles(){
+        return $this->hasMany(Article::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
+    public function bookmarks()
+    {
+        return $this->hasMany(Bookmark::class);
+    }
+
+    public function bookmark_articles()
+    {
+        return $this->belongsToMany(Article::class, 'bookmarks', 'user_id', 'article_id');
+    }
+
+    public function is_bookmark($articleId)
+    {
+        return $this->bookmarks()->where('article_id', $articleId)->exists();
+    }
 }
