@@ -41,4 +41,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function machines()
+    {
+        return $this->hasMany(machine_user_relation::class);
+    }
+
+    public function user_to_machine(){
+        return $this->belongsToMany(Machines::class, 'machine_user_relation', 'user_id', 'machine_id');
+    }
+
 }

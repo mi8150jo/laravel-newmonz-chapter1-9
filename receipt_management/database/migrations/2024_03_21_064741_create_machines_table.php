@@ -14,14 +14,15 @@ class CreateMachinesTable extends Migration
     public function up()
     {
         Schema::create('machines', function (Blueprint $table) {
+            
             $table->id();
             $table->string('name');
             $table->unsignedInteger('issue_count')->default(0);
             $table->unsignedInteger('total_issue_count')->default(0);
             $table->float('remaining_length')->default(6400);
-            $table->float('average_length')->default(0);
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
+
+            // unsignedBigInteger:これは符号なしのビッグ整数
         });
     }
 
